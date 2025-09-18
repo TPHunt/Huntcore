@@ -1,0 +1,14 @@
+layout:
+  - Sheet Name Text
+  - View Text
+  - ----
+  - Dimension Text
+  - Parameter Text
+  - Schedule Text
+
+tooltip: >
+  Collection of tools for toggling text case across different element types
+
+title: Text Case Toggles
+
+author: Troy Hunt
