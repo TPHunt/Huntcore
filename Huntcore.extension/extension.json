@@ -1,7 +1,5 @@
 {
-    "name": "Sheet Name Case Toggle",
-    "author": "TPH",
-    "description": "Toggles selected sheet names between UPPERCASE and Sentence case.",
-    "revit_version": "2022",
-    "pyrevit_version": "4.x"
+  "name": "Huntcore",
+  "author": "Troy Hunt",
+  "description": "Custom Huntcore pyRevit tools"
 }
