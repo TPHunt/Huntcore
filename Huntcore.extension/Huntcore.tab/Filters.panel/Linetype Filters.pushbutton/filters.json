@@ -1,18 +1,155 @@
 [
   {
-    "name": "00_Line Control_Halftone",
+    "name": "Line Control - Halftone",
     "categories": ["OST_DetailComponents"],
     "rules": [
-      {"param": "ALL_MODEL_INSTANCE_COMMENTS", "condition": "Contains", "value": "Halftone"}
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Halftone"
+      }
     ],
     "overrides": { "halftone": true }
   },
   {
-    "name": "00_Line Control_Dashed",
+    "name": "Line Control - Dashed",
     "categories": ["OST_DetailComponents"],
     "rules": [
-      {"param": "ALL_MODEL_INSTANCE_COMMENTS", "condition": "Contains", "value": "Dashed"}
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Dashed"
+      }
     ],
     "overrides": { "line_pattern": "Dash" }
+  },
+  {
+    "name": "Line Control - Hidden",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Hidden"
+      }
+    ],
+    "overrides": { "line_pattern": "Hidden2" }
+  },
+  {
+    "name": "Line Control - Lineweight 1",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "LW1"
+      }
+    ],
+    "overrides": { "line_weight": 1 }
+  },
+  {
+    "name": "Line Control - Lineweight 2",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "LW2"
+      }
+    ],
+    "overrides": { "line_weight": 2 }
+  },
+  {
+    "name": "Line Control - Lineweight 3",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "LW3"
+      }
+    ],
+    "overrides": { "line_weight": 3 }
+  },
+  {
+    "name": "Line Control - Lineweight 4",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "LW4"
+      }
+    ],
+    "overrides": { "line_weight": 4 }
+  },
+  {
+    "name": "Line Control - Lineweight 5",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "LW5"
+      }
+    ],
+    "overrides": { "line_weight": 5 }
+  },
+  {
+    "name": "Line Control - Red",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Red"
+      }
+    ],
+    "overrides": { "line_color": "Red" }
+  },
+  {
+    "name": "Line Control - Blue",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Blue"
+      }
+    ],
+    "overrides": { "line_color": "Blue" }
+  },
+  {
+    "name": "Line Control - Demo",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Demo"
+      }
+    ],
+    "overrides": {
+      "line_color": "Red",
+      "line_weight": 1,
+      "line_pattern": "Demolished"
+    }
+  },
+  {
+    "name": "Line Control - Existing",
+    "categories": ["OST_DetailComponents"],
+    "rules": [
+      {
+        "param": "ALL_MODEL_INSTANCE_COMMENTS",
+        "condition": "Contains",
+        "value": "Existing"
+      }
+    ],
+    "overrides": {
+      "line_color": [127, 127, 127],
+      "line_weight": 2,
+      "surface_pattern": "<Solid Fill>",
+      "surface_pattern_color": [190, 230, 240]
+    }
   }
 ]
