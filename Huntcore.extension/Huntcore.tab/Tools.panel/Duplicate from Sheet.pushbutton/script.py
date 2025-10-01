@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Huntcore: Duplicate placed view on sheet (Revit 2023+)
-Run this from an active Sheet. Select the placed view (viewport) on the sheet before running.
+Run this from an active Sheet. 
+Select the placed view (viewport) on the sheet before running.
 Options: Duplicate, Duplicate with Detailing
 """
 
