@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+"""
+Update text case of dimension overrides. 
+
+Choice of:
+UPPERCASE
+lowercase
+Sentence case
+Title case
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
+
 from pyrevit import revit, DB, forms
 
 def convert_case(text, case_type):

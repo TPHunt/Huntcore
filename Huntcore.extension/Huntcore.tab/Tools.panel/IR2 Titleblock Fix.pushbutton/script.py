@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-# pyRevit script: Align "Arup Revision List_GRS" titleblocks
-# with "Arup_Titleblock_A0 Vertical_ISO19650_SG_GRS_IR2"
-# and apply custom user-defined offset (X,Y in mm).
-#
-# Compatible with Revit 2023+ (tested under pyRevit IronPython)
+"""
+Align "Arup Revision List_GRS" titleblocks 
+with "Arup_Titleblock_A0 Vertical_ISO19650_SG_GRS_IR2"
+and apply custom user-defined offset (X,Y in mm).
+Use x = 1107.7 and y = 235.2 for IR2 Project
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
 
 from pyrevit import revit, DB, forms
 from Autodesk.Revit.DB import (

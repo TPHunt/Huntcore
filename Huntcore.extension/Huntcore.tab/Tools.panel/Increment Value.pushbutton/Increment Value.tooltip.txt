@@ -1,2 +1,0 @@
-# Huntcore Script | Author: Troy Hunt | Revit 2023+ | pyRevit Extension
-# Increment last number in parameter values.

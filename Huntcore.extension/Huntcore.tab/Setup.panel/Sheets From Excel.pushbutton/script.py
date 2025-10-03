@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
-# pyRevit Tool: Create or Update Sheets from Excel
-# Reads headers from row 5 (B5-K5) and values from row 6 onward.
-# Creates new sheets or updates existing ones, populating parameters.
-# Lets user pick title block family for all new sheets.
-# Only prompts for existing sheets if Excel data differs from Revit parameters.
-# Shows column-by-column differences for each existing sheet needing update.
-# Reports back with a summary at the end.
+"""
+Create or Update Sheets from the Arup Structural Drawing List Builder Excel file.
+
+!!! NOTE: Excel file to be updated to provide full drg number without prefix codes !!!
+
+Reads headers from row 5 (B5-K5) and values from row 6 onward.
+Creates new sheets or updates existing ones, populating parameters.
+Lets user pick title block family for all new sheets.
+Only prompts for existing sheets if Excel data differs from Revit parameters.
+Shows column-by-column differences for each existing sheet needing update.
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
 
 from Autodesk.Revit.DB import *
 from pyrevit import forms, revit

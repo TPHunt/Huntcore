@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Allow or Disallow structural framing joins (Start / End / Both).
-Drop this script into a pyRevit pushbutton folder.
-Works with Revit 2023+ (uses StructuralFramingUtils methods).
+Allow or Disallow structural framing joins of selected framing members.
+Option for Start, End, or Both ends.
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
 """
 
 from pyrevit import revit, DB, forms, script

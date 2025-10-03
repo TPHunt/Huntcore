@@ -1,4 +1,19 @@
 # -*- coding: utf-8 -*-
+
+"""
+Update text case of specified views. 
+
+!!! NOTE: Formatting lost on bulletpoint text notes!!!
+
+Choice of:
+UPPERCASE
+lowercase
+Sentence case
+Title case
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
+
 from pyrevit import revit, DB, forms
 import re
 

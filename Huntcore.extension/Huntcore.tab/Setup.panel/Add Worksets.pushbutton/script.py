@@ -1,7 +1,28 @@
 # -*- coding: utf-8 -*-
-__title__ = "Standard Worksets"
-__author__ = "Troy Hunt"
-__doc__ = "Popup tool to add predefined worksets, set 'Visible in all views', rename defaults, and relinquish all mine."
+"""
+Add predefined worksets, set 'Visible in all views' = True or False".
+Renames Workset1 and Shared Levels and Grids.
+
+"00_Structures", True
+"01_Foundations", True
+"02_Core Walls", True
+"03_3D Reinforcement", True
+"80_Link RVT_STRUC (Name) Exist Model", True
+"81_Link RVT_ARCH (Name) Exist Model", False
+"81_Link RVT_ARCH (Name) Model", False
+"82_Link RVT_ELEC (Name) Model", False
+"83_Link RVT_FIRE (Name) Model", False
+"84_Link RVT_HYD (Name) Model", False
+"85_Link RVT_MECH (Name) Model", False
+"86_Link RVT_CIVIL (Name) Model", False
+"87_Link RVT_LANDSCAPE (Name) Model", False
+"88_Link DWG", False
+"89_Link IFC", False
+"90_Scopeboxes", False
+"99_Shared Levels and Grids", True
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
 
 from Autodesk.Revit.DB import (
     Workset, FilteredWorksetCollector, WorksetKind,

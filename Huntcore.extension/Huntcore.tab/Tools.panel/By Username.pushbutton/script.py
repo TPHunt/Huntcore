@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+
+"""
+Select elements last updated by the specified user. 
+
+!!! NOTE: This will run on all elements in the current view - Full model in view will be sloooow !!!
+
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
+
 from collections import defaultdict
 from pyrevit import revit, DB, forms
 from System.Collections.Generic import List

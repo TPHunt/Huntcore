@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
-# Huntcore Script | Author: Troy Hunt | Revit 2023+ | pyRevit Extension
-# Increment last number in parameter values.
+"""
+Specify parameter to update.
+Specify amount to increment up or down for the last number of the value.
+Ie. 4B26 -> 4B27
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
 
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI import TaskDialog

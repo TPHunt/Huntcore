@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Huntcore: Renumber viewports on active sheet and optionally rename views
+"""
+Huntcore: Renumber viewports on active sheet and optionally rename views
  - Orders viewports top-left -> right, then next row top-left -> right
  - Supports numeric and alphanumeric increment systems:
     1, 2, 3, ...
@@ -9,7 +10,8 @@
  - User inputs starting detail number (can be text or number, e.g. "1", "A1", "D-01")
  - Optionally, user can provide a text string to rename views to "<text> <detail number>"
  - Conflicts handled with user choice: append 'x' or skip
-Author: Troy Hunt | Huntcore
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
 """
 
 from Autodesk.Revit.DB import (

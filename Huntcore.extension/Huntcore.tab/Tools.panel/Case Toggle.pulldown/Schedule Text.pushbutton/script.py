@@ -1,3 +1,15 @@
+"""
+Update text case of specified schedules. 
+
+Choice of:
+UPPERCASE
+lowercase
+Sentence case
+Title case
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
+
 def main():
     # Get schedule views only
     all_schedules = DB.FilteredElementCollector(revit.doc).OfClass(DB.ViewSchedule).ToElements()

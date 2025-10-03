@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Huntcore: Duplicate placed view on sheet (Revit 2023+)
+Huntcore: Duplicate placed view on sheet.
 Run this from an active Sheet. 
 Select the placed view (viewport) on the sheet before running.
 Options: Duplicate, Duplicate with Detailing
 
-Huntcore Script | Author: Troy Hunt | Revit 2023+ | pyRevit Extension
+Huntcore Script | Author: Troy Hunt | Revit 2023+
 """
 
 from pyrevit import revit, forms, script

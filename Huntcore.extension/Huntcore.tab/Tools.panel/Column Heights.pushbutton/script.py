@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-__title__   = "Adjust Column Heights"
-__author__  = "Huntcore"
-__doc__     = "Adjust either the Base or Top Height of selected Structural Columns by a user-specified dimension."
+"""
+Adjust either the Base or Top Height of selected Structural Columns by a user-specified dimension.
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
+"""
 
 from pyrevit import forms, revit, DB
 from pyrevit.forms import WPFWindow

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Enforce Join Hierarchy on Already Joined Elements (pyRevit)
-- UI: checkbox list + up/down reorder
-- Only enforces join order on elements that are already joined
-- Options: Only elements in current view or entire model
+Enforce Join Hierarchy on Already Joined Elements.
+- UI: checkbox list + up/down reorder heirarchy.
+- Only enforces join order on elements that are already joined.
+- Options: Only elements in current view or entire model.
 
-Huntcore Script | Author: Troy Hunt | Revit 2023+ | pyRevit Extension
+Huntcore Script | Author: Troy Hunt | Revit 2023+
 """
 
 import clr

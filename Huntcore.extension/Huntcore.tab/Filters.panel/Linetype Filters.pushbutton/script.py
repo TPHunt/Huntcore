@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-View filter + overrides importer for Revit 2023+ (pyRevit / IronPython 2.7).
-- No f-strings; compatible with IronPython 2.7
-- Only updates overrides for existing filters; does not change categories or rules
-- Supports overrides: line color, line weight, line pattern,
-  surface foreground pattern + color, cut foreground pattern + color,
-  transparency, halftone.
-- Accepts color as [r,g,b], "RGB r-g-b", hex "#RRGGBB", or named colors.
+Add predefined filters shown below to selected view templates to control Detail Component visibility.
+Multiple values can be added to the Comments parameter.
+
+Line Control - Halftone – Comments contains Halftone
+Line Control - Dashed – Comments contains Dashed
+Line Control - Hidden – Comments contains Hidden
+Line Control - Lineweight 1 – Comments contains LW1
+Line Control - Lineweight 2 – Comments contains LW2
+Line Control - Lineweight 3 – Comments contains LW3
+Line Control - Lineweight 4 – Comments contains LW4
+Line Control - Lineweight 5 – Comments contains LW5
+Line Control - Red – Comments contains Red
+Line Control - Blue – Comments contains Blue
+Line Control - Demo – Comments contains Demo
+Line Control - Existing – Comments contains Existing
+
+Huntcore Script | Author: Troy Hunt | Revit 2023+
 """
 
 from Autodesk.Revit.DB import *
