@@ -1,25 +1,29 @@
 # -*- coding: utf-8 -*-
 """
-Add predefined worksets, set 'Visible in all views' = True or False".
-Renames Workset1 and Shared Levels and Grids.
+Add predefined worksets by package selection.
+Renames default worksets and sets 'Visible in all views' = True or False.
 
-"00_Structures", True
-"01_Foundations", True
-"02_Core Walls", True
-"03_3D Reinforcement", True
-"80_Link RVT_STRUC (Name) Exist Model", True
-"81_Link RVT_ARCH (Name) Exist Model", False
-"81_Link RVT_ARCH (Name) Model", False
-"82_Link RVT_ELEC (Name) Model", False
-"83_Link RVT_FIRE (Name) Model", False
-"84_Link RVT_HYD (Name) Model", False
-"85_Link RVT_MECH (Name) Model", False
-"86_Link RVT_CIVIL (Name) Model", False
-"87_Link RVT_LANDSCAPE (Name) Model", False
-"88_Link DWG", False
-"89_Link IFC", False
-"90_Scopeboxes", False
-"99_Shared Levels and Grids", True
+Package: Aus STR
+    "00_Structures", True
+    "01_Foundations", True
+    "02_Core Walls", True
+    "03_3D Reinforcement", True
+    "80_Link RVT_STRUC (Name) Exist Model", True
+    "81_Link RVT_ARCH (Name) Exist Model", False
+    "81_Link RVT_ARCH (Name) Model", False
+    "82_Link RVT_ELEC (Name) Model", False
+    "83_Link RVT_FIRE (Name) Model", False
+    "84_Link RVT_HYD (Name) Model", False
+    "85_Link RVT_MECH (Name) Model", False
+    "86_Link RVT_CIVIL (Name) Model", False
+    "87_Link RVT_LANDSCAPE (Name) Model", False
+    "88_Link DWG", False
+    "89_Link IFC", False
+    "90_Scopeboxes", False
+    "99_Shared Levels and Grids", True
+
+Package: Aus MEP
+    Matches Aus STR but with 'MEP-' prefix
 
 Huntcore Script | Author: Troy Hunt | Revit 2023+
 """
@@ -41,8 +45,10 @@ AUTO = False   # set to True to skip popup and just create all
 if not doc.IsWorkshared:
     forms.alert("This model is not workshared.\nWorksets can only be added in a workshared model.", exitscript=True)
 
-# Predefined worksets (name, visible_in_all_views)
-PREDEFINED_WORKSETS = [
+# --- PREDEFINED PACKAGES ---
+
+AUS_STR = [
+    ("00_Structures", True),
     ("01_Foundations", True),
     ("02_Core Walls", True),
     ("03_3D Reinforcement", True),
@@ -58,9 +64,33 @@ PREDEFINED_WORKSETS = [
     ("88_Link DWG", False),
     ("89_Link IFC", False),
     ("90_Scopeboxes", False),
+    ("99_Shared Levels and Grids", True),
 ]
 
-# Choose worksets to create
+# Generate Aus MEP from Aus STR
+AUS_MEP = [("MEP-" + name, vis) for name, vis in AUS_STR]
+
+PACKAGES = {
+    "Aus STR": AUS_STR,
+    "Aus MEP": AUS_MEP
+}
+
+# --- SELECT PACKAGE ---
+if AUTO:
+    selected_package_name = "Aus STR"
+else:
+    selected_package_name = forms.SelectFromList.show(
+        sorted(PACKAGES.keys()),
+        title="Select Workset Package",
+        button_name="Select Package"
+    )
+
+if not selected_package_name:
+    forms.alert("No package selected. Cancelled.", exitscript=True)
+
+PREDEFINED_WORKSETS = PACKAGES[selected_package_name]
+
+# --- SELECT WORKSETS FROM PACKAGE ---
 choices = [ws[0] for ws in PREDEFINED_WORKSETS]
 if AUTO:
     selected = choices
@@ -68,28 +98,23 @@ else:
     selected = forms.SelectFromList.show(
         choices,
         multiselect=True,
-        title="Select Worksets to Create",
+        title="Select Worksets to Create ({})".format(selected_package_name),
         button_name="Create Worksets",
-        default=choices  # preselect all
+        default=choices
     )
 
 if not selected:
     forms.alert("No worksets selected. Cancelled.", exitscript=True)
 
-# Collect existing worksets
+# --- EXISTING WORKSETS ---
 collector = FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset)
 existing_worksets = {ws.Name: ws for ws in collector}
 
-# Map for quick lookup
 predef_dict = dict(PREDEFINED_WORKSETS)
-
-created = []
-skipped = []
-renamed = []
-errors = []
+created, skipped, renamed, errors = [], [], [], []
 
 
-# --- Functions ---
+# --- HELPER FUNCTIONS ---
 def rename_workset_safely(workset_table, workset_id, new_name):
     """Handle RenameWorkset API differences across Revit versions"""
     try:
@@ -108,26 +133,24 @@ def rename_workset_safely(workset_table, workset_id, new_name):
             return False
 
 
-# --- Main Transaction ---
+# --- MAIN TRANSACTION ---
 t = Transaction(doc, "Manage Worksets")
 try:
     t.Start()
-
     ws_table = doc.GetWorksetTable()
 
-    # Rename default worksets
+    # Rename defaults
     for ws in collector:
         if ws.Name == "Workset1":
             if rename_workset_safely(ws_table, ws.Id, "00_Structures"):
                 WorksetDefaultVisibilitySettings.GetWorksetDefaultVisibilitySettings(doc).SetWorksetVisibility(ws.Id, True)
                 renamed.append("Workset1 -> 00_Structures")
-        
         elif ws.Name == "Shared Levels and Grids":
             if rename_workset_safely(ws_table, ws.Id, "99_Shared Levels and Grids"):
                 WorksetDefaultVisibilitySettings.GetWorksetDefaultVisibilitySettings(doc).SetWorksetVisibility(ws.Id, True)
                 renamed.append("Shared Levels and Grids -> 99_Shared Levels and Grids")
 
-    # Create or update selected worksets
+    # Create or update worksets
     for name in selected:
         if name in existing_worksets:
             skipped.append(name)
@@ -148,7 +171,7 @@ except Exception as e:
         t.RollBack()
     forms.alert("Error: {}".format(e), exitscript=True)
 
-# --- Relinquish All Mine ---
+# --- RELINQUISH ALL ---
 try:
     relinq_opts = RelinquishOptions(True)
     relinq_opts.StandardWorksets = True
@@ -167,7 +190,7 @@ except Exception as e:
     errors.append("Relinquish failed: {}".format(e))
 
 
-# --- Report back ---
+# --- REPORT BACK ---
 msg = []
 if created:
     msg.append("✅ Created:\n" + "\n".join(created))
