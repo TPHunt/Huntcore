@@ -88,19 +88,19 @@ for el in selection:
         element_map[el] = (old_val, new_val)
         preview_rows.append("{}  →  {}".format(old_val, new_val))
 
-# ------------------------------------------------------------
-# Show preview list
-# ------------------------------------------------------------
-confirm = forms.SelectFromList.show(
-    preview_rows,
-    title="Preview Changes ({} values)".format(param_name),
-    button_name="Apply Changes",
-    multiselect=False
-)
-
-if not confirm:
-    TaskDialog.Show("Cancelled", "No changes applied.")
+if not preview_rows:
+    TaskDialog.Show("Notice", "No values to update.")
     raise SystemExit
+
+# ------------------------------------------------------------
+# Show preview alert (informational only)
+# ------------------------------------------------------------
+preview_text = "\n".join(preview_rows)
+forms.alert(
+    preview_text,
+    title="Preview Changes ({} values)".format(param_name),
+    ok=True
+)
 
 # ------------------------------------------------------------
 # Apply changes
@@ -117,4 +117,3 @@ for el, (old_val, new_val) in element_map.items():
 t.Commit()
 
 TaskDialog.Show("Done", "Updated {} element(s).".format(count))
-

@@ -1,6 +1,6 @@
 [
   {
-    "name": "Line Control - Halftone",
+    "name": "Detail Component - Halftone",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -12,7 +12,7 @@
     "overrides": { "halftone": true }
   },
   {
-    "name": "Line Control - Dashed",
+    "name": "Detail Component - Dashed",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -24,7 +24,7 @@
     "overrides": { "line_pattern": "Dash" }
   },
   {
-    "name": "Line Control - Hidden",
+    "name": "Detail Component - Hidden",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -36,7 +36,7 @@
     "overrides": { "line_pattern": "Hidden2" }
   },
   {
-    "name": "Line Control - Lineweight 1",
+    "name": "Detail Component - Lineweight 1",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -48,7 +48,7 @@
     "overrides": { "line_weight": 1 }
   },
   {
-    "name": "Line Control - Lineweight 2",
+    "name": "Detail Component - Lineweight 2",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -60,7 +60,7 @@
     "overrides": { "line_weight": 2 }
   },
   {
-    "name": "Line Control - Lineweight 3",
+    "name": "Detail Component - Lineweight 3",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -72,7 +72,7 @@
     "overrides": { "line_weight": 3 }
   },
   {
-    "name": "Line Control - Lineweight 4",
+    "name": "Detail Component - Lineweight 4",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -84,7 +84,7 @@
     "overrides": { "line_weight": 4 }
   },
   {
-    "name": "Line Control - Lineweight 5",
+    "name": "Detail Component - Lineweight 5",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -96,7 +96,7 @@
     "overrides": { "line_weight": 5 }
   },
   {
-    "name": "Line Control - Red",
+    "name": "Detail Component - Red",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -108,7 +108,7 @@
     "overrides": { "line_color": "Red" }
   },
   {
-    "name": "Line Control - Blue",
+    "name": "Detail Component - Blue",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -120,7 +120,7 @@
     "overrides": { "line_color": "Blue" }
   },
   {
-    "name": "Line Control - Demo",
+    "name": "Detail Component - Demo",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
@@ -136,7 +136,7 @@
     }
   },
   {
-    "name": "Line Control - Existing",
+    "name": "Detail Component - Existing",
     "categories": ["OST_DetailComponents"],
     "rules": [
       {
