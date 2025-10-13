@@ -7,7 +7,8 @@ Huntcore: Renumber viewports on active sheet and optionally rename views
     A, B, C, ...
     AA, AB, AC, ...
     A1, A2, A3, ...
- - User inputs starting detail number (can be text or number, e.g. "1", "A1", "D-01")
+    L5-1, L5-2, L5-3, ...
+ - User inputs starting detail number (can be text or number, e.g. "1", "A1", "D-01", "L5-1")
  - Optionally, user can provide a text string to rename views to "<text> <detail number>"
  - Conflicts handled with user choice: append 'x' or skip
 
@@ -95,20 +96,37 @@ def int_to_letters(n):
 
 
 def generate_alphanumeric(start_str, index):
-    # Numeric
+    """
+    Generates alphanumeric or mixed-type numbering with support for:
+    - Pure numbers: "1" -> 1, 2, 3
+    - Letters: "A" -> A, B, C
+    - Letters + numbers: "A1" -> A1, A2, A3
+    - Hyphenated patterns: "L5-1" -> L5-1, L5-2, L5-3
+    """
+    # Numeric only
     if re.match(r"^\d+$", start_str):
         num = int(start_str)
         return str(num + index)
+
     # Letters only
     elif re.match(r"^[A-Z]+$", start_str, re.I):
         base_num = sum((ord(c.upper()) - 64) * (26 ** i) for i, c in enumerate(reversed(start_str)))
         return int_to_letters(base_num + index)
+
     # Letter + Number (A1, B2, etc.)
     elif re.match(r"^([A-Z]+)(\d+)$", start_str, re.I):
         m = re.match(r"^([A-Z]+)(\d+)$", start_str, re.I)
         prefix = m.group(1).upper()
         num = int(m.group(2))
         return "{0}{1}".format(prefix, num + index)
+
+    # Hyphenated numeric suffix (e.g., L5-1, D-01, A-03B not supported)
+    elif re.match(r"^(.*?)-(\d+)$", start_str):
+        m = re.match(r"^(.*?)-(\d+)$", start_str)
+        prefix = m.group(1)
+        num = int(m.group(2))
+        return "{0}-{1}".format(prefix, num + index)
+
     # Fallback: append index
     else:
         if index == 0:
