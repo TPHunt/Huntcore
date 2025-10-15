@@ -1,4 +1,4 @@
-name: Log GitHub Clones
+name: Log GitHub Traffic (Clones + Views)
 
 on:
   schedule:
@@ -6,8 +6,12 @@ on:
   workflow_dispatch:      # Allows manual run from Actions tab
 
 jobs:
-  log-clones:
+  log-traffic:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write     # Needed for committing results
+      actions: read
 
     steps:
       - name: Checkout repository
@@ -21,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Log clone data
+      - name: Log clone and view data
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPO: ${{ github.repository }}
@@ -32,31 +36,45 @@ jobs:
 
           token = os.environ["GH_TOKEN"]
           repo = os.environ["REPO"]
-          url = f"https://api.github.com/repos/{repo}/traffic/clones"
           headers = {"Authorization": f"token {token}"}
 
-          r = requests.get(url, headers=headers)
-          r.raise_for_status()
-          data = r.json()["clones"]
+          # --- Fetch clones ---
+          clones_url = f"https://api.github.com/repos/{repo}/traffic/clones"
+          clones_data = requests.get(clones_url, headers=headers).json().get("clones", [])
 
-          file = "clone_log.csv"
+          # --- Fetch views ---
+          views_url = f"https://api.github.com/repos/{repo}/traffic/views"
+          views_data = requests.get(views_url, headers=headers).json().get("views", [])
+
+          # --- Build lookup tables ---
+          views_by_date = {v["timestamp"]: v for v in views_data}
+          clones_by_date = {c["timestamp"]: c for c in clones_data}
+
+          # --- Combine ---
+          all_dates = sorted(set(list(views_by_date.keys()) + list(clones_by_date.keys())))
+          file = "repo_traffic_log.csv"
           write_header = not os.path.exists(file)
 
           with open(file, "a", newline="") as f:
               writer = csv.writer(f)
               if write_header:
-                  writer.writerow(["date", "count", "uniques"])
-              for d in data:
-                  writer.writerow([d["timestamp"], d["count"], d["uniques"]])
+                  writer.writerow(["date", "clone_count", "clone_uniques", "view_count", "view_uniques"])
 
-          print(f"✅ Logged {len(data)} entries for {repo} on {datetime.now().date()}")
+              for dt in all_dates:
+                  c = clones_by_date.get(dt, {"count": 0, "uniques": 0})
+                  v = views_by_date.get(dt, {"count": 0, "uniques": 0})
+                  writer.writerow([dt, c["count"], c["uniques"], v["count"], v["uniques"]])
+
+          print(f"✅ Logged traffic for {len(all_dates)} days in {repo}")
 
           PYCODE
 
       - name: Commit & Push results
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add clone_log.csv
-          git commit -m "Update clone log [skip ci]" || echo "No changes to commit"
-          git push
+          git add repo_traffic_log.csv
+          git commit -m "Update traffic log [skip ci]" || echo "No changes to commit"
+          git push https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
