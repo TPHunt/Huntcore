@@ -1,0 +1,62 @@
+name: Log GitHub Clones
+
+on:
+  schedule:
+    - cron: "0 1 * * *"  # Runs daily at 01:00 UTC
+  workflow_dispatch:      # Allows manual run from Actions tab
+
+jobs:
+  log-clones:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Log clone data
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          python - <<'PYCODE'
+          import requests, csv, os
+          from datetime import datetime
+
+          token = os.environ["GH_TOKEN"]
+          repo = os.environ["REPO"]
+          url = f"https://api.github.com/repos/{repo}/traffic/clones"
+          headers = {"Authorization": f"token {token}"}
+
+          r = requests.get(url, headers=headers)
+          r.raise_for_status()
+          data = r.json()["clones"]
+
+          file = "clone_log.csv"
+          write_header = not os.path.exists(file)
+
+          with open(file, "a", newline="") as f:
+              writer = csv.writer(f)
+              if write_header:
+                  writer.writerow(["date", "count", "uniques"])
+              for d in data:
+                  writer.writerow([d["timestamp"], d["count"], d["uniques"]])
+
+          print(f"✅ Logged {len(data)} entries for {repo} on {datetime.now().date()}")
+
+          PYCODE
+
+      - name: Commit & Push results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add clone_log.csv
+          git commit -m "Update clone log [skip ci]" || echo "No changes to commit"
+          git push
